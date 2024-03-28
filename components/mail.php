@@ -18,8 +18,8 @@ function sendMail($email, $name, $token){
         $mail->isSMTP();                        
         $mail->Host       = 'smtp-relay.brevo.com'; 
         $mail->SMTPAuth   = true;        
-        $mail->Username   = 'sanjnadadralh1970@gmail.com';    
-        $mail->Password   = 'xsmtpsib-6de0e8f18904ead6d006525c92a0a2b6e50cff310c7776341088615353e6a055-Mm1Bd3fECAKVRnt9';
+        $mail->Username   = '';    
+        $mail->Password   = '';
         $mail->SMTPSecure = 'tls';              
         $mail->Port       = 587;                                  
 
