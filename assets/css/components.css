@@ -1,0 +1,78 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark light;
+  font-family: sans-serif;
+}
+body {
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+img,
+iframe {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+:root {
+  --secondary-clr-300: #8d86df;
+  --secondary-clr-400: #6d66bb;
+  --secondary-clr-500: #544da3;
+
+  --primary-clr-300: #3495ba;
+  --primary-clr-400: #237da1;
+  --primary-clr-500: #176585;
+
+  --accent-clr-300: #003050;
+  --accent-clr-400: #003558;
+  --accent-clr-500: #003f6a;
+
+  --text-clr-300: #525252;
+  --text-clr-400: #3d3d3d;
+  --text-clr-500: #292929;
+
+  --bg-clr-500: #fff;
+
+  --fs-300: clamp(0.94rem, calc(0.92rem + 0.08vw), 0.98rem);
+  --fs-400: clamp(1.13rem, calc(1.06rem + 0.33vw), 1.31rem);
+  --fs-500: clamp(1.35rem, calc(1.21rem + 0.69vw), 1.75rem);
+  --fs-600: clamp(1.62rem, calc(1.37rem + 1.24vw), 2.33rem);
+  --fs-700: clamp(1.94rem, calc(1.54rem + 2.03vw), 3.11rem);
+  --fs-800: clamp(2.33rem, calc(1.7rem + 3.15vw), 4.14rem);
+}
+.__btn {
+  background-color: var(--accent-clr-500);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  display: block;
+  color: #fff;
+  border: none;
+  width: fit-content;
+}
+
+#header nav {
+  position: relative;
+  box-shadow: 0px 0px 20px #ffffffd6;
+  background-color: var(--secondary-clr-500);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+}
+
+#header nav .logo {
+  font-size: var(--fs-600);
+  color: var(--accent-clr-500);
+  text-decoration: none;
+  font-weight: 800;
+}

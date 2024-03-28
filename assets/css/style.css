@@ -1,0 +1,106 @@
+/* <==========Hero Section Starts =============> */
+#hero {
+  background-color: var(--primary-clr-500);
+  padding-block: 10rem;
+  text-align: center;
+}
+#hero h1 {
+  font-size: var(--fs-700);
+  padding-bottom: 0.2rem;
+}
+#hero p {
+  font-size: var(--fs-500);
+  padding-bottom: 2rem;
+}
+/* <==========Hero Section Ends =============> */
+
+/* <==========Blog Section Starts =============> */
+#blog {
+  background-color: var(--bg-clr-500) !important;
+  padding-block: 10rem;
+}
+#blog .content {
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#blog .content h1 {
+  font-size: var(--fs-700);
+  color: var(--text-clr-500);
+}
+#blog .content h2 {
+  font-size: var(--fs-600);
+  color: var(--text-clr-500);
+}
+#blog .content h3 {
+  font-size: var(--fs-500);
+  color: var(--text-clr-500);
+}
+#blog .content h4,
+#blog .content h5,
+#blog .content h6 {
+  font-size: var(--fs-400);
+  color: var(--text-clr-500);
+}
+
+#blog .content p {
+  font-size: var(--fs-400);
+  color: var(--text-clr-400);
+}
+#blog .content img {
+  border: 2px solid var(--secondary-clr-500);
+  border-radius: 0.5rem;
+  margin-block: 2rem;
+  box-shadow: 6px 6px 0 0 var(--secondary-clr-300);
+}
+#blog .content ul,
+#blog .content ol {
+  text-align: left;
+  color: var(--text-clr-400);
+  padding-left: 1rem;
+}
+
+#blog .content blockquote {
+  font-size: var(--fs-400);
+  color: var(--text-clr-400);
+}
+
+/* <==========Blog Section Ends =============> */
+
+/* <==========Auth Section Starts ===========> */
+#auth {
+  min-height: 100vh;
+  background: pink;
+  overflow: hidden;
+}
+#auth form {
+  background-color: var(--bg-clr-500);
+  margin-inline: auto;
+  width: fit-content;
+  padding: 1rem 4rem 3rem 4rem;
+  margin-top: 10rem;
+  border-radius: 0.5rem;
+  box-shadow: 6px 6px 0px var(--secondary-clr-500);
+}
+#auth form .form-input {
+  margin-block: 1rem;
+}
+#auth form input {
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-clr-500);
+  border: 2px solid var(--secondary-clr-400);
+  border-radius: 0.5rem;
+  color: var(--text-clr-500);
+}
+#auth form label {
+  color: var(--text-clr-400);
+  font-size: var(--fs-300);
+}
+#auth form button {
+  margin-top: 2rem;
+  width: 100% !important;
+  margin-inline: auto;
+}
+/* <==========Auth Section Ends ===========> */
