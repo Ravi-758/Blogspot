@@ -1,3 +1,4 @@
+<?php include('master/conn.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,21 @@
         <nav>
             <a href="/" class="logo">BlogSpot</a>
             <ul></ul>
-            <a class="__btn" href="">Create Your Blog</a>
+            <div class="flex gap-1 justify-center">  
+                <?php 
+                if(isset($_SESSION['logged_in'])){
+                    if($_SESSION['logged_in'] != 'true'){
+                        echo('<a class="__btn" href="user/auth/login.php">Login</a><a class="__btn" href="user/auth/register.php">Register</a>');
+                    }
+                    else{
+                        echo('<a class="__btn" href="user/blog/create.php">Create Your Blog</a><a class="__btn" href="user/auth/logout.php">Logout</a>');
+                    }
+                }
+                else{
+                    echo('<a class="__btn" href="user/auth/login.php">Login</a><a class="__btn" href="user/auth/register.php">Register</a>');
+                    }
+                ?>
+            </div>     
         </nav>
     </header>
     

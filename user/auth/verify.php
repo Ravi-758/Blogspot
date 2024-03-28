@@ -1,22 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/components.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <title>BlogSpot | Login page</title>
-</head>
-<body>
-    <section id="auth">
-        <form action="">
-            <div class="form-input">
-                <label for="">Enter otp</label>
-                <input type="text" name="otp" placeholder="otp"/>
-</div>
-            <button class="__btn" type="submit">Submit</button>
+<?php
+include('../../master/conn.php');
+include('../../components/mail.php');
 
-        </form>
-    </section>
-</body>
-</html>
+if(isset($_SESSION['logged_in'])){
+    if($_SESSION['logged_in'] == 'true'){
+        header('Location: http://localhost/Github/Blogspot/index.php');
+    }
+}
+
+$token = $_GET['token'];
+$email = $_GET['email'];
+$now =  date("Y/m/d H:i:s");
+
+    $sql = "Select * from users WHERE email = '$email' AND token = '$token'";
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            if($row['token'] == $token AND $row['token'] > $now){
+                $conn->query("UPDATE users set email_verified_at = '$now' WHERE email = '$email'");
+                $_SESSION['logged_in'] = 'true';       
+                $_SESSION['email'] = $email;
+                header('Location: http://localhost/Github/Blogspot/index.php');
+            }
+            else{
+                echo('<script>alert("Your token has been expired please regenerate.")</script>');
+            }
+        }
+    } else {
+        echo('<script>alert("This is not a valid link")</script>');
+    }
+   

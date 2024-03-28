@@ -49,6 +49,22 @@ iframe {
   --fs-700: clamp(1.94rem, calc(1.54rem + 2.03vw), 3.11rem);
   --fs-800: clamp(2.33rem, calc(1.7rem + 3.15vw), 4.14rem);
 }
+.flex {
+  display: flex;
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-1 {
+  gap: 1rem;
+}
+.gap-2 {
+  gap: 2rem;
+}
 .__btn {
   background-color: var(--accent-clr-500);
   padding: 0.5rem 1rem;
@@ -58,6 +74,7 @@ iframe {
   color: #fff;
   border: none;
   width: fit-content;
+  cursor: pointer;
 }
 
 #header nav {

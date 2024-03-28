@@ -1,3 +1,41 @@
+<?php
+include('../../master/conn.php');
+include('../partials/cdns.php');
+
+if(isset($_SESSION['alert'])){
+    if($_SESSION['alert'] != ''){
+        echo('<script>alert("'.$_SESSION['alert'].'")</script>');
+        $_SESSION['alert'] = '';
+    }
+}
+if(isset($_SESSION['logged_in'])){
+    if($_SESSION['logged_in'] == 'true'){
+        header('Location: http://localhost/Github/Blogspot/index.php');
+    }
+}
+
+if(isset($_POST['submit'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $result = $conn->query("Select * from users WHERE email = '$email' AND password = '$password' AND email_verified_at != ''");
+
+    if ($result->num_rows > 0) {
+        $_SESSION['logged_in'] = 'true';
+        $_SESSION['email'] = $email;
+
+        header('Location: http://localhost/Github/Blogspot/index.php');
+    } else {
+        $result1 = $conn->query("Select * from users WHERE email = '$email' AND password = '$password'");
+        if ($result1->num_rows > 0) {
+            header('Location: http://localhost/Github/Blogspot/user/auth/regenerate.php?name='.$name.'&email='.$email.'');
+        }else{
+            $_SESSION['alert'] = 'Wrong credentials';
+            header("Refresh:0");
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,17 +47,16 @@
 </head>
 <body>
     <section id="auth">
-        <form action="">
+        <form action="" method="POST">
             <div class="form-input">
                 <label for="">Email</label>
-                <input type="text" name="email"  placeholder="Email id"/>
+                <input type="text" name="email"  placeholder="Email id" required/>
             </div>
             <div class="form-input">
                 <label for="">Password</label>
-                <input type="text" name="password" placeholder="password"/>
+                <input type="text" name="password" placeholder="password" required/>
             </div>
-            <button class="__btn" type="submit">Submit</button>
-
+            <button class="__btn" name="submit" type="submit">Submit</button>
         </form>
     </section>
 </body>
