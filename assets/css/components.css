@@ -59,11 +59,17 @@ iframe {
 .justify-center {
   justify-content: center;
 }
+.flex-col {
+  flex-direction: column;
+}
 .gap-1 {
   gap: 1rem;
 }
 .gap-2 {
   gap: 2rem;
+}
+.w-full {
+  width: 100%;
 }
 .__btn {
   background-color: var(--accent-clr-500);

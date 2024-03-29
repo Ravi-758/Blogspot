@@ -1,6 +1,6 @@
 <?php
 include('../../master/conn.php');
-include('../partials/cdns.php');
+include('../../components/mail.php');
 
 if(isset($_SESSION['alert'])){
     if($_SESSION['alert'] != ''){
@@ -8,33 +8,36 @@ if(isset($_SESSION['alert'])){
         $_SESSION['alert'] = '';
     }
 }
+
 if(isset($_SESSION['logged_in'])){
     if($_SESSION['logged_in'] == 'true'){
         header('Location: http://localhost/Github/Blogspot/index.php');
     }
 }
 
-if(isset($_POST['submit'])){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+$token = $_GET['token'];
+$email = $_GET['email'];
+$now =  date("Y/m/d H:i:s");
 
-    $result = $conn->query("Select * from users WHERE email = '$email' AND password = '$password' AND email_verified_at != ''");
+    $sql = "Select * from users WHERE email = '$email' AND token = '$token'";
 
+    $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $_SESSION['logged_in'] = 'true';
-        $_SESSION['email'] = $email;
-
-        header('Location: http://localhost/Github/Blogspot/index.php');
-    } else {
-        $result1 = $conn->query("Select * from users WHERE email = '$email' AND password = '$password'");
-        if ($result1->num_rows > 0) {
-            header('Location: http://localhost/Github/Blogspot/user/auth/regenerate.php?name='.$name.'&email='.$email.'');
-        }else{
-            $_SESSION['alert'] = 'Wrong credentials';
-            header("Refresh:0");
+        while($row = $result->fetch_assoc()) {
+            if($row['token'] == $token AND $row['token'] > $now){
+                $conn->query("UPDATE users set email_verified_at = '$now' WHERE email = '$email'");
+                $_SESSION['logged_in'] = 'true';       
+                $_SESSION['email'] = $email;
+                header('Location: http://localhost/Github/Blogspot/index.php');
+            }
+            else{
+                echo('<script>alert("Your token has been expired please regenerate.")</script>');
+            }
         }
+    } else {
+        echo('<script>alert("This is not a valid link")</script>');
     }
-}
+   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,21 +46,24 @@ if(isset($_POST['submit'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/components.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <title>BlogSpot | Login page</title>
+    <title>BlogSpot | Password Reset</title>
 </head>
 <body>
     <section id="auth">
         <form action="" method="POST">
             <div class="form-input">
                 <label for="">Email</label>
-                <input type="text" name="email"  placeholder="Email id" required/>
+                <input type="text" name="email"  placeholder="Email id" value="<?php $_GET['email']?> " required/>
+            </div>
+            <div class="form-input">
+                <label for="">Password</label>
+                <input type="text" name="password" placeholder="password" required/>
             </div>
             <div class="form-input">
                 <label for="">Password</label>
                 <input type="text" name="password" placeholder="password" required/>
             </div>
             <a href="forgot-password.php">forgot password?</a>
-            <a href="register.php">Register</a>
             <button class="__btn" name="submit" type="submit">Submit</button>
         </form>
     </section>

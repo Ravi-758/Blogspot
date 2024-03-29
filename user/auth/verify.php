@@ -2,6 +2,13 @@
 include('../../master/conn.php');
 include('../../components/mail.php');
 
+if(isset($_SESSION['alert'])){
+    if($_SESSION['alert'] != ''){
+        echo('<script>alert("'.$_SESSION['alert'].'")</script>');
+        $_SESSION['alert'] = '';
+    }
+}
+
 if(isset($_SESSION['logged_in'])){
     if($_SESSION['logged_in'] == 'true'){
         header('Location: http://localhost/Github/Blogspot/index.php');

@@ -12,7 +12,7 @@ require '../../vendor/autoload.php';
 function sendMail($email, $name, $token){
     $mail = new PHPMailer();
     // try {
-        $mail->SMTPDebug = 0;                 
+        $mail->SMTPDebug = 1;                 
         $mail->isSMTP();                        
         $mail->Host       = 'smtp-relay.brevo.com'; 
         $mail->SMTPAuth   = true;        

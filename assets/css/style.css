@@ -1,7 +1,7 @@
 /* <==========Hero Section Starts =============> */
 #hero {
   background-color: var(--primary-clr-500);
-  padding-block: 10rem;
+  padding-block: 5rem;
   text-align: center;
 }
 #hero h1 {
@@ -17,7 +17,7 @@
 /* <==========Blog Section Starts =============> */
 #blog {
   background-color: var(--bg-clr-500) !important;
-  padding-block: 10rem;
+  padding-block: 5rem;
 }
 #blog .content {
   max-width: 50rem;
