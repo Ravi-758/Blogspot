@@ -1,4 +1,12 @@
-<?php include('master/conn.php'); ?>
+<?php include('master/conn.php'); 
+
+if(isset($_SESSION['alert'])){
+    if($_SESSION['alert'] != ''){
+        echo('<script>alert("'.$_SESSION['alert'].'")</script>');
+        $_SESSION['alert'] = '';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +28,7 @@
                         echo('<a class="__btn" href="user/auth/login.php">Login</a><a class="__btn" href="user/auth/register.php">Register</a>');
                     }
                     else{
-                        echo('<a class="__btn" href="user/blog/create.php">Create Your Blog</a><a class="__btn" href="user/auth/logout.php">Logout</a>');
+                        echo('<a class="__btn" href="user/blog/index.php">Your Blogs</a><a class="__btn" href="user/auth/logout.php">Logout</a>');
                     }
                 }
                 else{
