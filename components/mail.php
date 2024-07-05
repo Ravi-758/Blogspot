@@ -16,7 +16,7 @@ function sendMail($email, $name, $token)
     // try {
     $mail->SMTPDebug = 1;
     $mail->isSMTP();
-    $mail->Host       = 'smtp-relay.brevo.com';
+    $mail->Host       = '';
     $mail->SMTPAuth   = true;
     $mail->Username   = '';
     $mail->Password   = '';
