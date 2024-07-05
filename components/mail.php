@@ -23,7 +23,7 @@ function sendMail($email, $name, $token)
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    $mail->setFrom('blogSpot.business@gmail.com', 'Mailer');
+    $mail->setFrom('', 'Mailer');
 
     $mail->addAddress($email, $name);
 
