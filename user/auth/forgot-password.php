@@ -11,7 +11,7 @@ if(isset($_SESSION['alert'])){
 
 if(isset($_SESSION['logged_in'])){
     if($_SESSION['logged_in'] == 'true'){
-        header('Location: http://localhost/Github/Blogspot/index.php');
+        header('Location: http://localhost/blogspot/index.php');
     }
 }
 
@@ -19,14 +19,14 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     
     $token= uniqid();
-    $link = 'http://localhost/Github/Blogspot/user/auth/reset-password.php?token='.$token.'&email='.$email;
+    $link = 'http://localhost/blogspot/user/auth/reset-password.php?token='.$token.'&email='.$email;
     $thirtyMinutes = date("Y/m/d H:i:s", strtotime("+30 minutes"));
 
-    $result = $conn->query("Select * from users WHERE email = '$email'");
+    $result = $conn->query("Select * from users1 WHERE email = '$email'");
     if ($result->num_rows < 0) {
         echo('<script>alert("This email is not registered with us, please create a new account.")</script>');
     } else {
-         $sql = "UPDATE users set token = '$token', token_valid_till = '$thirtyMinutes' WHERE email = '$email'";
+         $sql = "UPDATE users1 set token = '$token', token_valid_till = '$thirtyMinutes' WHERE email = '$email'";
 
         if ($conn->query($sql) === TRUE) {
             sendMail($email, '', $link);
@@ -51,11 +51,15 @@ if(isset($_POST['submit'])){
 <body>
     <section id="auth">
          <form action="" method="POST">
-            <h3>Enter your email to get password reset token</h3>
+            
+            <h1>BlogSpot</h1>
+            <p style="margin-top:1rem">Enter your email to get password reset token</->
             <div class="form-input">
                 <label for="">Email</label>
                 <input class="w-full" type="text" name="email"  placeholder="Email id" required/>
             </div>
+            <a href="login.php">login?</a>
+
            
             <button class="__btn" name="submit" type="submit">Submit</button>
         </form>

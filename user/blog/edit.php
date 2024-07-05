@@ -1,62 +1,51 @@
 <?php 
-    include('../../master/conn.php'); 
+include('../../master/conn.php'); 
 
     include('../auth/middleware/auth.php');
+
+    
+$id= $_GET['id'];
+$result = $conn->query("Select * from blogs WHERE id = '$id'");
 
 if(isset($_POST['submit'])){
 
     $author_name = $_POST['author_name'];
     $author_profile = $_POST['author_profile'];
-    // $image = $_POST['image'];
     $title = $_POST['title'];
     $content = $_POST['content']; 
     $email = $_SESSION['email'];
-
+ 
     $filename = $_FILES["image"]["name"];
-        if(isset($filename) && $filename){
-
+    if(isset($filename) && $filename){
         $tempname = $_FILES["image"]["tmp_name"];
 
-        // $imageName = $filename . '-' . date("Y-m-d-h:i:s");
         $imageName = $filename;
 
         $folder = "../../uploads/blogs/images/" . $imageName;
-        move_uploaded_file($tempname, $folder);
-        }
         
-    else{
-        $imageName = 'default.jpg';
-
-    }
-    
-    $result1 = $conn->query("Select * from users1 WHERE email = '$email'");
-    if ($result1->num_rows > 0) {
-        while($row = $result1->fetch_assoc()) {
-            $user_id = $row['id'];
-        }
+        move_uploaded_file($tempname, $folder);
     }
     else{
-        echo('<script>alert("There was a technical error.😒😒")</script>');
+        $imageName = $_POST['imageaa'];
+
     }
 
-    $result = $conn->query("Select * from blogs WHERE title = '$title'");
-    if ($result->num_rows > 0) {
-        echo('<script>alert("This blog is already stored in the database, please try editing it, or do not post it at all.😒😒")</script>');
+    $result = $conn->query("Select * from blogs WHERE id = '$id'");
+    if ($result->num_rows <= 0) {
+        echo('<script>alert("Error.😒😒")</script>');
     } else {
-        $sql = "INSERT INTO blogs (user_id, author_name, author_profile, title, image, content, created_at) VALUES ('$user_id','$author_name', '$author_profile', '$title','$imageName','$content',now())";
+        $sql = "UPDATE blogs set author_name = '$author_name', author_profile = '$author_profile', title = '$title', image = '$imageName', content = '$content' WHERE id = '$id'";
 
+        
         // echo($sql);die;
         if ($conn->query($sql) === TRUE) {
-            $_SESSION['alert'] = 'Yaaayy!, Blog has been created. 😎😉';
+            $_SESSION['alert'] = 'Yaaayy!, Blog has been edited. 😎😉';
             header('Location: http://localhost/blogspot/user/blog/index.php');
         } else {
             echo('<script>alert("There is an error in your blog content.🫠, please solve it before uploading")</script>');
-
-            // echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,51 +71,58 @@ if(isset($_POST['submit'])){
     </style>
 </head>
 <body>
-
-<?php include('../../partials/header.php');
+   
+<?php 
+     include('../../partials/header.php');
 ?>
-<main>
-        <section id="hero" style="color:#fff;background-image: url('../../assets/images/pinkCity.jpg')">
-            <h1>Publish your passions, your way</h1>
-            <p>Create a unique and beautiful blog easily.</p>
-            <a class="__btn" href="index.php">Your Blogs</a>
-        </section>
+    <main>
+     <section id="hero" style="color:#fff;background-image: url('../../assets/images/orangeBackground.jpg')">
+        <h1>Publish your passions, your way</h1>
+        <p>Create a unique and beautiful blog easily.</p>
+        <a class="__btn" href="create.php">Create new blog</a>
+    </section>
 
-        
-        <section id="form" style="background-color:cornflowerblue;">
-            <h1 class="heading">Create a new blog</h1>
+    <section id="form"  style="background-color:cornflowerblue;">
+     <h1 class="heading">Edit your blog</h1>
         <div class="flex justify-center">
-            
+    <?php if ($result->num_rows <= 0) {  ?>
+        <div style="background:cornflowerblue;font-size:20px;font-weight:bold;text-align:center;padding-block:5rem">Huge Error! wow 😢</div>
+    <?php } else { 
+                while($row = $result->fetch_assoc()) {
+        ?>
     <form action="" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="imageaa" value="<?= $row['image'] ?>" />
         <div class="form-group">
             <label for="author_name">Author name</label>
-            <input type="text" name="author_name" class="form-control" id="author_name">
+            <input type="text" name="author_name" value="<?= $row['author_name'] ?>" class="form-control" id="author_name">
         </div>
         <div class="form-group">
             <label for="author_profile">Author profile</label>
-            <input type="text" name="author_profile" class="form-control" id="author_profile">
+            <input type="text" name="author_profile"  value="<?= $row['author_profile'] ?>" class="form-control" id="author_profile">
         </div>
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control"  name="title" id="title">
+            <input type="text" class="form-control"  value="<?= $row['title'] ?>"  name="title" id="title">
         </div>
         <div class="form-group">
             <label for="image">Image</label>
-            <input type="file" class="form-control" name="image" id="image">
+            <input type="file" class="form-control"  value="" name="image" id="image">
         </div>
         <div class="form-group">
             <label for="content">Blog</label>
-            <textarea class="form-control" name="content" id="editor1" style="width:10rem"></textarea>
+            <textarea class="form-control" name="content" id="editor1" style="width:10rem"><?= $row['content'] ?></textarea>
         </div>
         
         <button name="submit" type="submit" style="width:100%" class="__btn mx-auto mt-5">Submit</button>
     </form>
-        </div>
-    </section>
-          
+                </div>
+    <?php } } ?>
 
-</main>
-        <?php include('../../partials/footer.php') ?>
+    </section>
+    </main>
+              <?php include('../../partials/footer.php') ?>
+
+
 </body>
     <script>
          ClassicEditor.create(document.querySelector('#editor1')).catch(error => {

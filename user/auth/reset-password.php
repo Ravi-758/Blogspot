@@ -11,24 +11,29 @@ if(isset($_SESSION['alert'])){
 
 if(isset($_SESSION['logged_in'])){
     if($_SESSION['logged_in'] == 'true'){
-        header('Location: http://localhost/Github/Blogspot/index.php');
+        header('Location: http://localhost/blogspot/index.php');
     }
 }
 
 $token = $_GET['token'];
 $email = $_GET['email'];
+
+if(isset($_POST['submit'])){
+    
+$password= $_POST['password'];
 $now =  date("Y/m/d H:i:s");
 
-    $sql = "Select * from users WHERE email = '$email' AND token = '$token'";
+    $sql = "Select * from users1 WHERE email = '$email' AND token = '$token'";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             if($row['token'] == $token AND $row['token'] > $now){
-                $conn->query("UPDATE users set email_verified_at = '$now' WHERE email = '$email'");
+                $conn->query("UPDATE users1 set password = '$password' WHERE email = '$email'");
                 $_SESSION['logged_in'] = 'true';       
                 $_SESSION['email'] = $email;
-                header('Location: http://localhost/Github/Blogspot/index.php');
+                $_SESSION['alert'] = 'Password reset successfully';
+                header('Location: http://localhost/blogspot/index.php');
             }
             else{
                 echo('<script>alert("Your token has been expired please regenerate.")</script>');
@@ -37,7 +42,7 @@ $now =  date("Y/m/d H:i:s");
     } else {
         echo('<script>alert("This is not a valid link")</script>');
     }
-   
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,17 +56,15 @@ $now =  date("Y/m/d H:i:s");
 <body>
     <section id="auth">
         <form action="" method="POST">
+            
+            <h1>BlogSpot</h1>
             <div class="form-input">
                 <label for="">Email</label>
-                <input type="text" name="email"  placeholder="Email id" value="<?php $_GET['email']?> " required/>
+                <input type="text" name="email"  placeholder="Email id" value="<?= $email?>" required/>
             </div>
             <div class="form-input">
-                <label for="">Password</label>
-                <input type="text" name="password" placeholder="password" required/>
-            </div>
-            <div class="form-input">
-                <label for="">Password</label>
-                <input type="text" name="password" placeholder="password" required/>
+                <label for="">New assword</label>
+                <input type="password" name="password" placeholder="password" required/>
             </div>
             <a href="forgot-password.php">forgot password?</a>
             <button class="__btn" name="submit" type="submit">Submit</button>

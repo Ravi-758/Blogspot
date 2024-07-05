@@ -1,6 +1,5 @@
 <?php
 include('../../master/conn.php');
-include('../partials/cdns.php');
 
 if(isset($_SESSION['alert'])){
     if($_SESSION['alert'] != ''){
@@ -10,7 +9,7 @@ if(isset($_SESSION['alert'])){
 }
 if(isset($_SESSION['logged_in'])){
     if($_SESSION['logged_in'] == 'true'){
-        header('Location: http://localhost/Github/Blogspot/index.php');
+        header('Location: http://localhost/blogspot/index.php');
     }
 }
 
@@ -18,19 +17,22 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $result = $conn->query("Select * from users WHERE email = '$email' AND password = '$password' AND email_verified_at != ''");
-
+    $result = $conn->query("Select * from users1 WHERE email = '$email' AND password = '$password' AND email_verified_at != ''");
+    
     if ($result->num_rows > 0) {
         $_SESSION['logged_in'] = 'true';
         $_SESSION['email'] = $email;
 
-        header('Location: http://localhost/Github/Blogspot/index.php');
+        $_SESSION['alert'] = 'Login successfull';
+
+        header('Location: http://localhost/blogspot/index.php');
     } else {
-        $result1 = $conn->query("Select * from users WHERE email = '$email' AND password = '$password'");
+        $result1 = $conn->query("Select * from users1 WHERE email = '$email' AND password = '$password'");
         if ($result1->num_rows > 0) {
-            header('Location: http://localhost/Github/Blogspot/user/auth/regenerate.php?name='.$name.'&email='.$email.'');
+            header('Location: http://localhost/blogspot/user/auth/regenerate.php?name='.$name.'&email='.$email.'');
         }else{
             $_SESSION['alert'] = 'Wrong credentials';
+    
             header("Refresh:0");
         }
     }
@@ -48,16 +50,21 @@ if(isset($_POST['submit'])){
 <body>
     <section id="auth">
         <form action="" method="POST">
+            <h1>BlogSpot</h1>
+            <p>Login Form</p>
+
             <div class="form-input">
                 <label for="">Email</label>
                 <input type="text" name="email"  placeholder="Email id" required/>
             </div>
             <div class="form-input">
                 <label for="">Password</label>
-                <input type="text" name="password" placeholder="password" required/>
+                <input type="password" name="password" placeholder="password" required/>
             </div>
-            <a href="forgot-password.php">forgot password?</a>
-            <a href="register.php">Register</a>
+            <div class="flex">
+                <a href="forgot-password.php">forgot password?</a>
+                <a href="register.php">Register</a>
+            </div>
             <button class="__btn" name="submit" type="submit">Submit</button>
         </form>
     </section>

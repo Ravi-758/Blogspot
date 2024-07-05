@@ -11,7 +11,7 @@ if(isset($_SESSION['alert'])){
 
 if(isset($_SESSION['logged_in'])){
     if($_SESSION['logged_in'] == 'true'){
-        header('Location: http://localhost/Github/Blogspot/index.php');
+        header('Location: http://localhost/blogspot/index.php');
     }
 }
 
@@ -20,10 +20,10 @@ if(isset($_POST['submit'])){
     $email = $_GET['email'];
     
     $token= uniqid();
-    $link = 'http://localhost/Github/Blogspot/user/auth/verify.php?token='.$token.'&email='.$email;
+    $link = 'http://localhost/blogspot/user/auth/verify.php?token='.$token.'&email='.$email;
     $thirtyMinutes = date("Y/m/d H:i:s", strtotime("+30 minutes"));
 
-    $sql = "UPDATE users set token = '$token', token_valid_till = '$thirtyMinutes' WHERE email = '$email'";
+    $sql = "UPDATE users1 set token = '$token', token_valid_till = '$thirtyMinutes' WHERE email = '$email'";
 
     if ($conn->query($sql) === TRUE) {
         sendMail($email, $name, $link);
@@ -46,12 +46,14 @@ if(isset($_POST['submit'])){
 <body>
     <section id="auth">
         <form action="" method="POST">
+            
+            <h1>BlogSpot</h1>
             <h2>We have sent you a verification email</h2>
             <br>
             Please verify your email before login or try resending verification email.
             <br>
             <br>
-            Go to <a href="https://localhost/Github/Blogspot/user/auth/login.php">login</a> page.
+            Go to <a href="https://localhost/blogspot/user/auth/login.php">login</a> page.
             <button class="__btn" name="submit" type="submit">Resend Email Verification</button>
         </form>
     </section>
