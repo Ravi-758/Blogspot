@@ -7,11 +7,15 @@ session_start();
 // $db = "blogSpot";
 // $password = "123456789";
 
-$servername="127.0.0.1";
-$db="u765052536_lmjlara";
-$username="u765052536_lmjlara";
-$password="Laralappa@121";
+// $servername="127.0.0.1";
+// $db="u765052536_lmjlara";
+// $username="u765052536_lmjlara";
+// $password="Laralappa@121";
 
+$servername="127.0.0.1";
+$db="blogspot";
+$username="root";
+$password="";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password,$db);
@@ -42,3 +46,4 @@ if(isset($_SESSION['email'])){
 }
 
 ?>
+

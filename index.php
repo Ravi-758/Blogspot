@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogSpot</title>
-    <link rel="stylesheet" href="../../assets/css/components.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="./assets/css/components.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">    
 </head>
 <body>
     <?php 
-    include('../../master/conn.php'); 
-        include('../auth/middleware/auth.php');
+    include('./master/conn.php'); 
+        include('./user/auth/middleware/auth.php');
 
-        include('../../partials/header.php');
+        include('./partials/header.php');
     ?>
     <main>
         <section id="hero" style="background-image: url('../../assets/images/ocean.jpg')">
@@ -37,7 +37,7 @@
                 ?>
 
                     <div class="card">
-                        <img class="card-img-top" src="../../uploads/blogs/images/<?= $row['image'] ?>" alt="Card image cap">
+                        <img class="card-img-top" src="./uploads/blogs/images/<?= $row['image'] ?>" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title"><?= substr($row['title'],0,60)?></h5>
                             <br>    
@@ -55,7 +55,7 @@
        
 
     </main>
-    <?php include('../../partials/footer.php') ?>
+    <?php include('./partials/footer.php') ?>
 
 </body>
 </html>
