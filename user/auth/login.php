@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $result = $conn->query("Select * from users1 WHERE email = '$email' AND password = '$password' AND email_verified_at != ''");
+    $result = $conn->query("Select * from users WHERE email = '$email' AND password = '$password' AND email_verified_at != ''");
     
     if ($result->num_rows > 0) {
         $_SESSION['logged_in'] = 'true';
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
 
         header('Location: http://localhost/blogspot/index.php');
     } else {
-        $result1 = $conn->query("Select * from users1 WHERE email = '$email' AND password = '$password'");
+        $result1 = $conn->query("Select * from users WHERE email = '$email' AND password = '$password'");
         if ($result1->num_rows > 0) {
             header('Location: http://localhost/blogspot/user/auth/regenerate.php?name='.$name.'&email='.$email.'');
         }else{

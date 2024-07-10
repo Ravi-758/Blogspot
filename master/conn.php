@@ -35,7 +35,7 @@ if(isset($_SESSION['alert'])){
 if(isset($_SESSION['email'])){
     $email = $_SESSION['email'];
 
-    $result9 = $conn->query("Select * from users1 WHERE email = '$email'");
+    $result9 = $conn->query("Select * from users WHERE email = '$email'");
 
     if ($result9->num_rows > 0) {
         while($row = $result9->fetch_assoc()) {
