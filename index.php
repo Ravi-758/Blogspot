@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">    
 </head>
 <body>
-    <?php 
+    <?php   
     include('./master/conn.php'); 
         include('./user/auth/middleware/auth.php');
 

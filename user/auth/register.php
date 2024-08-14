@@ -25,9 +25,9 @@ if(isset($_POST['submit'])){
     $link = 'http://localhost/blogspot/user/auth/verify.php?token='.$token.'&email='.$email;
     $thirtyMinutes = date("Y/m/d H:i:s", strtotime("+30 minutes"));
 
-    $result = $conn->query("Select * from users1 WHERE email = '$email'");
+    $result = $conn->query("Select * from users WHERE email = '$email'");
     if ($result->num_rows > 0) {
-        $result1 = $conn->query("Select * from users1 WHERE email = '$email' AND email_verified_at != '' ");
+        $result1 = $conn->query("Select * from users WHERE email = '$email' AND email_verified_at != '' ");
         if ($result1->num_rows > 0) {
             echo('<script>alert("This email is already registered with us, please try to log in or reset your password.")</script>');
         }
@@ -36,7 +36,7 @@ if(isset($_POST['submit'])){
             header('Location: http://localhost/blogspot/user/auth/regenerate.php?name='.$name.'&email='.$email.'');
         }
     } else {
-        $sql = "INSERT INTO users1 (name, email, password, token, token_valid_till, created_at) VALUES ('$name', '$email', '$password','$token','$thirtyMinutes',now())";
+        $sql = "INSERT INTO users (name, email, password, token, token_valid_till, created_at) VALUES ('$name', '$email', '$password','$token','$thirtyMinutes',now())";
 
         if ($conn->query($sql) === TRUE) {
             sendMail($email, $name, $link);

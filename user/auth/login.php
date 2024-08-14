@@ -8,6 +8,7 @@ if(isset($_SESSION['alert'])){
     }
 }
 if(isset($_SESSION['logged_in'])){
+
     if($_SESSION['logged_in'] == 'true'){
         header('Location: http://localhost/blogspot/index.php');
     }
@@ -37,6 +38,7 @@ if(isset($_POST['submit'])){
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +51,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
     <section id="auth">
-        <form action="" method="POST">
+        <form action="" method="GET">
             <h1>BlogSpot</h1>
             <p>Login Form</p>
 

@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
     $link = 'http://localhost/blogspot/user/auth/verify.php?token='.$token.'&email='.$email;
     $thirtyMinutes = date("Y/m/d H:i:s", strtotime("+30 minutes"));
 
-    $sql = "UPDATE users1 set token = '$token', token_valid_till = '$thirtyMinutes' WHERE email = '$email'";
+    $sql = "UPDATE users set token = '$token', token_valid_till = '$thirtyMinutes' WHERE email = '$email'";
 
     if ($conn->query($sql) === TRUE) {
         sendMail($email, $name, $link);
